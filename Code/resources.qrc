@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>shaders/buzz_fragshader.glsl</file>
+        <file>shaders/buzz_vertshader.glsl</file>
+        <file>models/buzzball.obj</file>
+    </qresource>
+</RCC>
