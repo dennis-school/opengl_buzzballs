@@ -9,6 +9,29 @@ Transform3f::Transform3f( )
 
 }
 
+Transform3f::Transform3f( float scale, QVector3D rotation, QVector3D translation )
+        : translation( translation ), rotation( rotation ), scale( scale, scale, scale ) {
+    rebuildMatrix( );
+}
+
+Transform3f Transform3f::Scale( float s ) {
+    Transform3f t;
+    t.setScale( s );
+    return t;
+}
+
+Transform3f Transform3f::Rotation( QVector3D rotVec ) {
+    Transform3f t;
+    t.setRotation( rotVec.x( ), rotVec.y( ), rotVec.z( ) );
+    return t;
+}
+
+Transform3f Transform3f::Translation( QVector3D v ) {
+    Transform3f t;
+    t.setTranslation( v );
+    return t;
+}
+
 QMatrix4x4 Transform3f::matrix( ) const {
     return _matrix;
 }

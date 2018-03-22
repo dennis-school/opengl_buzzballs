@@ -61,6 +61,7 @@ private:
 
     float time;
 
+    // The main batch is kept separately, because it has a different 'u_spike' value.
     std::unique_ptr< AnimatedBatch > mainBatch;
     std::vector< std::unique_ptr< AnimatedBatch > > batches;
 };

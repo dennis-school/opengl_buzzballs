@@ -68,10 +68,22 @@ private:
     float frac;
 };
 
+/**
+ * @brief The ConstantAnimator class is an a constant "animation". At any time interval the
+ *   same transform will be obtained.
+ *
+ * This class is necessary to allow a constant transform to be part of the animation sequence.
+ *   That is, for example, a constant translation occurring between two rotations. (Resulting
+ *   in one translation around the origin in local space, and another around the origin in
+ *   "translated space")
+ */
 class ConstantAnimator : public TransformAnimator {
 public:
     ConstantAnimator( Transform3f t ) : transform( t ) { }
-    Transform3f transformAt( float time ) { return transform; }
+    Transform3f transformAt( float time ) {
+        Q_UNUSED( time )
+        return transform;
+    }
 private:
     Transform3f transform;
 };

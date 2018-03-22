@@ -26,28 +26,31 @@ public:
      */
     Transform3f( );
 
-    Transform3f( float scale, QVector3D rotation, QVector3D translation )
-        : translation( translation ), rotation( rotation ), scale( scale, scale, scale ) {
-      rebuildMatrix( );
-    }
+    Transform3f( float scale, QVector3D rotation, QVector3D translation );
 
-    static Transform3f Scale( float s ) {
-        Transform3f t;
-        t.setScale( s );
-        return t;
-    }
+    /**
+     * @brief Translation creates a new Transform with only the specified
+     *   scale set
+     * @param s The scale
+     * @return The resulting transform
+     */
+    static Transform3f Scale( float s );
 
-    static Transform3f Rotation( QVector3D rotVec ) {
-        Transform3f t;
-        t.setRotation( rotVec.x( ), rotVec.y( ), rotVec.z( ) );
-        return t;
-    }
+    /**
+     * @brief Translation creates a new Transform with only the specified
+     *   rotation set
+     * @param rotVec The euclidean rotation vector (in degrees)
+     * @return The resulting transform
+     */
+    static Transform3f Rotation( QVector3D rotVec );
 
-    static Transform3f Translation( QVector3D v ) {
-        Transform3f t;
-        t.setTranslation( v );
-        return t;
-    }
+    /**
+     * @brief Translation creates a new Transform with only the specified
+     *   translation set
+     * @param v The translation
+     * @return The resulting transform
+     */
+    static Transform3f Translation( QVector3D v );
 
     /**
      * @brief matrix Returns the matrix associated with this transform

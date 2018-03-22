@@ -4,6 +4,8 @@
 #include <QOpenGLFunctions_3_3_Core>
 #include <QOpenGLShaderProgram>
 
+typedef QVector3D Color3D;
+
 /**
  * @brief The Material struct is a material that can be applied to a shader
  *   prior to rendering a mesh.
@@ -13,7 +15,7 @@ struct Material {
     GLuint normalTexture;
     GLuint specularTexture;
 
-    QVector3D color;
+    Color3D color;
 
     float ka; // Ambient multiplier
     float ks; // Specular multiplier

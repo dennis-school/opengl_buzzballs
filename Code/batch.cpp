@@ -47,6 +47,11 @@ void Batch< T >::draw( ) {
     pGl->glDrawElements( GL_TRIANGLES, 3 * numTriangles, GL_UNSIGNED_SHORT, (void *) 0 );
 }
 
+DefaultBatch::DefaultBatch( QOpenGLFunctions_3_3_Core *pGl, QVector< Vertex3 > vertices, QVector< Triangle > triangles  )
+        : Batch< Vertex3 >( pGl, vertices, triangles ) {
+    setupMemoryLayout( );
+}
+
 void DefaultBatch::setupMemoryLayout( ) {
     qDebug( ) << "DefaultBatch::setupMemoryLayout()";
 
@@ -62,6 +67,11 @@ void DefaultBatch::setupMemoryLayout( ) {
     pGl->glVertexAttribPointer( II_TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof( Vertex3 ), (void *) ( 2 * sizeof( QVector3D ) ) );
     pGl->glVertexAttribPointer( II_TANGENT, 3, GL_FLOAT, GL_FALSE, sizeof( Vertex3 ), (void *) ( 2 * sizeof( QVector3D ) + sizeof( QVector2D ) ) );
     pGl->glVertexAttribPointer( II_BITANGENT, 3, GL_FLOAT, GL_FALSE, sizeof( Vertex3 ), (void *) ( 3 * sizeof( QVector3D ) + sizeof( QVector2D ) ) );
+}
+
+BuzzBatch::BuzzBatch( QOpenGLFunctions_3_3_Core *pGl, QVector< BuzzVertex3 > vertices, QVector< Triangle > triangles  )
+        : Batch< BuzzVertex3 >( pGl, vertices, triangles ) {
+    setupMemoryLayout( );
 }
 
 void BuzzBatch::setupMemoryLayout( ) {
@@ -138,8 +148,6 @@ std::unique_ptr< DefaultBatch > defaultBatchFromModel( QOpenGLFunctions_3_3_Core
     return std::make_unique< DefaultBatch >( pGl, vertices, triangles );
 }
 
-// -- BuzzBatch
-
 std::unique_ptr< BuzzBatch > buzzBatchFromModel( QOpenGLFunctions_3_3_Core *pGl, Model model ) {
     QVector< QVector3D > positions = model.getVertices( );
 
@@ -150,8 +158,6 @@ std::unique_ptr< BuzzBatch > buzzBatchFromModel( QOpenGLFunctions_3_3_Core *pGl,
         vertices[ i + 0 ] = BuzzVertex3( positions[ i + 0 ], positions[ i + 1 ], positions[ i + 2 ] );
         vertices[ i + 1 ] = BuzzVertex3( positions[ i + 1 ], positions[ i + 2 ], positions[ i + 0 ] );
         vertices[ i + 2 ] = BuzzVertex3( positions[ i + 2 ], positions[ i + 0 ], positions[ i + 1 ] );
-
-        //qDebug( ) << QVector3D::crossProduct( positions[ i + 1 ] - positions[ i + 0 ], positions[ i + 2 ] - positions[ i + 0 ] ).normalized( ) << " " << normals[ i ] << " " << normals[ i + 1 ] << " " << normals[ i + 2 ];
     }
 
     QVector< Triangle > triangles( positions.size( ) / 3 );

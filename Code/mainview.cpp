@@ -130,8 +130,7 @@ void MainView::initializeGL() {
 }
 
 /**
- * @brief MainView::setupCatModel sets up the elements of the non-water animation
- *   which are a bunch of rotating cats and boxes.
+ * @brief MainView::setupAnimationBatches set up several buzz balls
  */
 void MainView::setupAnimationBatches( ) {
     Model modelBall( ":/models/buzzball.obj" );
